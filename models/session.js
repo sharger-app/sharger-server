@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const avSchema = new mongoose.Schema({
+const sessSchema = new mongoose.Schema({
     _id: mongoose.Schema.Types.ObjectId,
     charger: {
         type: mongoose.Schema.Types.ObjectId,
@@ -17,4 +17,4 @@ const avSchema = new mongoose.Schema({
 })
 
 
-module.exports = mongoose.model('availability', avSchema);
+module.exports = mongoose.model('session', sessSchema);

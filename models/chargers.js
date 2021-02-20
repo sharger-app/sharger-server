@@ -6,6 +6,10 @@ const chargerSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         required: true
     },
+    name:{
+        type: String,
+        requried: true
+    },
     speed: { // Rapid, fast, slow
         type: String,
         required: true
@@ -22,7 +26,7 @@ const chargerSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    availability: {
+    sessions: {
         type: mongoose.Schema.Types.ObjectId
     },
     housing: {
@@ -31,6 +35,9 @@ const chargerSchema = new mongoose.Schema({
     },
     review:{
         type: mongoose.Schema.Types.ObjectId
+    },
+    image:{
+        type: String
     }
 })
 
