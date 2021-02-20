@@ -4,14 +4,15 @@ const Charger = require("../models/chargers");
 const Validator = require("validator");
 const isEmpty = require("is-empty");
 
+const validateChargerInput = require("../validation/charger");
 /* GET home page. */
 router.post('/', function (req, res, next) {
     res.send('hello');
 });
 
 router.post('/add', function (req, res, next) {
+    console.log(req.body);
     const { errors, isValid } = validateChargerInput(req.body);
-
 
     if (!isValid) {
         return res.status(400).json(errors);
@@ -22,7 +23,7 @@ router.post('/add', function (req, res, next) {
             return res.status.json({ name: "Name already exists" });
         }
         else {
-            req.body.image = !isEmpty(data.image) ? data.image : "";
+            req.body.image = !isEmpty(req.body.image) ? req.body.image : "";
 
             const newCharger = new Charger({
                 _id: mongoose.Types.ObjectId(),
