@@ -3,6 +3,7 @@ var router = express.Router();
 const Charger = require("../models/chargers");
 const Validator = require("validator");
 const isEmpty = require("is-empty");
+const mongoose = require("mongoose");
 
 const validateChargerInput = require("../validation/charger");
 /* GET home page. */
@@ -10,14 +11,15 @@ router.post('/', function (req, res, next) {
     res.send('hello');
 });
 
-router.post('/add', function (req, res, next) {
+router.post('/add', async function (req, res, next) {
     console.log(req.body);
     const { errors, isValid } = validateChargerInput(req.body);
 
     if (!isValid) {
         return res.status(400).json(errors);
     }
-
+    const uri = process.env.mongoose;
+    await mongoose.connect(uri, { useNewUrlParser: true, useCreateIndex: true });
     Charger.findOne({ owner: req.body.owner, name: req.body.name }).then(charger => {
         if (charger) {
             return res.status.json({ name: "Name already exists" });

@@ -12,12 +12,19 @@ const chargerRouter = require('./routes/chargers');
 
 var app = express();
 
-const port  = 3000;
+
 require('dotenv').config();
 // Setting up mongoose
 const uri = process.env.mongoose;
+//global.db = (global.db ? global.db : mongoose.connect(uri, { useNewUrlParser: true, useCreateIndex: true }));
 mongoose.connect(uri, { useNewUrlParser: true, useCreateIndex: true });
 mongoose.Promise = global.Promise;
+
+const connection = mongoose.connection;
+
+connection.once('open', () => {
+  console.log("MongoDB database connection established successfully");
+});
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -35,12 +42,12 @@ app.use('/map', mapRouter);
 app.use('/chargers', chargerRouter);
 
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
   next(createError(404));
 });
 
 // error handler
-app.use(function(err, req, res, next) {
+app.use(function (err, req, res, next) {
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
@@ -50,8 +57,6 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
-app.listen(port, () => {
-  console.log(`Server is running on port: ${port}`);
-});
+
 
 module.exports = app;
