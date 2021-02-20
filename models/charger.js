@@ -10,6 +10,10 @@ const chargerSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    plug: {
+        type: String,
+        required: true
+    },
     wattage: { // In kW
         type: Number,
         required: true
@@ -18,8 +22,12 @@ const chargerSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    availability:{
+    availability: {
         type: mongoose.Schema.Types.ObjectId
+    },
+    housing: {
+        type: Boolean,
+        required: true
     }
 })
 
