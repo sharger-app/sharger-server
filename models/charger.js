@@ -28,7 +28,10 @@ const chargerSchema = new mongoose.Schema({
     housing: {
         type: Boolean,
         required: true
+    },
+    review:{
+        type: mongoose.Schema.Types.ObjectId
     }
 })
 
-module.exports = mongoose.model('user', chargerSchema);
+module.exports = mongoose.model('charger', chargerSchema);

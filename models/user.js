@@ -28,6 +28,7 @@ const userSchema = new mongoose.Schema({
     rental_history: [mongoose.Schema.Types.ObjectId],
     rented_history: [mongoose.Schema.Types.ObjectId],
     car_attribute: String,
+    user_rating: [Number]
 })
 
 module.exports = mongoose.model('user', userSchema);

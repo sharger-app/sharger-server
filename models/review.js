@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const histSchema = new mongoose.Schema({
+const reviewSchema = new mongoose.Schema({
     _id: mongoose.Schema.Types.ObjectId,
     charger: {
         type: mongoose.Schema.Types.ObjectId,
@@ -22,11 +22,13 @@ const histSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         required: true
     },
-    amount: {
+    star: {
         type: Number,
         required: true
+    },
+    comment:{
+        type: String
     }
 })
 
-
-module.exports = mongoose.model('history', histSchema);
+module.exports = mongoose.model('user', reviewSchema);
