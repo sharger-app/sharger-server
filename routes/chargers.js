@@ -22,6 +22,7 @@ router.post('/add', async function (req, res, next) {
     await mongoose.connect(uri, { useNewUrlParser: true, useCreateIndex: true });
     Charger.findOne({ owner: req.body.owner, name: req.body.name }).then(charger => {
         if (charger) {
+            mongoose.disconnect();
             return res.status.json({ name: "Name already exists" });
         }
         else {
@@ -42,8 +43,12 @@ router.post('/add', async function (req, res, next) {
                 newCharger.image = req.body.image;
             }
 
-            newCharger.save().then(charger => res.json(charger))
+            newCharger.save().then(charger => {
+                res.json(charger);
+                mongoose.disconnect();
+            })
                 .catch(err => console.log(err));
+
         }
     });
 });
