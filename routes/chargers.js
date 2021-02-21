@@ -95,13 +95,13 @@ router.post('/search', async function (req, res, next) {
     res.send(return1);
 });
 
-router.get('/getsession', async function (req, res, next) {
+router.post('/getsession', async function (req, res, next) {
     Session.findOne({_id:req.body.sess}).exec(async function (err, charger) {
         res.send(charger);
     });
 });
 
-router.get('/getowner', async function (req, res, next) {
+router.post('/getowner', async function (req, res, next) {
     User.find({_id : req.body.owner}).exec(async function (err, charger) {
         res.send(charger);
     });
@@ -114,7 +114,7 @@ router.get('/getowner', async function (req, res, next) {
 //         email: req.body.e,
 //         password: req.body.p,
 //         first_name: req.body.end,
-//         last_name: req.body.booker
+//         last_name: req.body.bookDDer
 //     });
 //     await newSess.save().then(charger => {
 //         res.json(charger);
@@ -122,7 +122,7 @@ router.get('/getowner', async function (req, res, next) {
 // });
 
 
-router.get('/getcharger', async function (req, res, next) {
+router.post('/getcharger', async function (req, res, next) {
     Charger.findOne({_id:req.body.charger}).exec(async function (err, charger) {
         res.send(charger);
     });

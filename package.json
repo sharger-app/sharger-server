@@ -17,7 +17,7 @@
     "jade": "~1.11.0",
     "jsonwebtoken": "^8.5.1",
     "kill-port": "^1.6.1",
-    "mongoose": "^5.11.17",
+    "mongoose": "^5.11.15",
     "morgan": "~1.9.1",
     "node-fetch": "^2.6.1",
     "validator": "^13.5.2"
