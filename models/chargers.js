@@ -6,7 +6,7 @@ const chargerSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         required: true
     },
-    name:{
+    name: {
         type: String,
         requried: true
     },
@@ -33,12 +33,16 @@ const chargerSchema = new mongoose.Schema({
         type: Boolean,
         required: true
     },
-    review:{
+    review: {
         type: mongoose.Schema.Types.ObjectId
     },
-    image:{
+    image: {
         type: String
+    },
+    price: { //dollar per min
+        type: Number,
+        required: true
     }
-})
+});
 
 module.exports = mongoose.model('charger', chargerSchema);

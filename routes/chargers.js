@@ -36,7 +36,8 @@ router.post('/add', async function (req, res, next) {
                 plug: req.body.plug,
                 address: req.body.address,
                 housing: req.body.housing,
-                speed: req.body.speed
+                speed: req.body.speed,
+                price: req.body.price
             });
 
             if (!Validator.isEmpty(req.body.image)) {
@@ -46,8 +47,7 @@ router.post('/add', async function (req, res, next) {
             newCharger.save().then(charger => {
                 res.json(charger);
                 mongoose.disconnect();
-            })
-                .catch(err => console.log(err));
+            }).catch(err => console.log(err));
 
         }
     });
