@@ -11,7 +11,8 @@ const mapRouter = require('./routes/map');
 const chargerRouter = require('./routes/chargers');
 
 var app = express();
-
+const cors = require('cors');
+app.use(cors());
 
 require('dotenv').config();
 // Setting up mongoose
