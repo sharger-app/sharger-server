@@ -6,6 +6,7 @@ const Validator = require("validator");
 const isEmpty = require("is-empty");
 const mongoose = require("mongoose");
 const fetch = require('node-fetch');
+require('dotenv').config();
 const maps = process.env.maps;
 
 const validateChargerInput = require("../validation/charger");
@@ -56,14 +57,29 @@ router.post('/add', async function (req, res, next) {
     });
 });
 
-// router.post('/search', async function (req, res, next) {
-//     Charger.find({}).exec(async function (err, charger) {
-//         for (var i = 0; i < charger.length; i++) {
-//             let dist = await fetch(`https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&origins=${req.body.address}&destinations=${charger[i].address}&key=${maps}`);
-//             console.log(dist);
-//         }
-//     });
-// });
+router.get('/search', async function (req, res, next) {
+    console.log(maps);
+    var distance = [];
+    var return1 = [];
+    Charger.find({}).exec(async function (err, charger) {
+        for (var i = 0; i < charger.length; i++) {
+            let dist = await fetch(`https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&origins=${req.body.address}&destinations=${charger[i].address}&key=${maps}`).then(res => res.json()).catch(err => { });
+            dist1 = dist.rows[0].elements[0].distance.value;
+            if (i != 0 && i>10) {
+                if (dist1 <= Math.min.apply(Math, nums)) {
+                    var rep = distance.indexOf(Math.min.apply(Math, nums));
+                    return1[rep] =charger[i];
+                    distance[rep]=dist1;
+                }
+            }
+            else{
+                distance.push(dist1);
+                return1.push(charger[i]);
+            }
+        }
+    });
+    res.send(return1);
+});
 
 
 router.post('/book', async function (req, res, next) {
