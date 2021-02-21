@@ -6,6 +6,8 @@ const Validator = require("validator");
 const isEmpty = require("is-empty");
 const mongoose = require("mongoose");
 const fetch = require('node-fetch');
+
+const User = require("../models/user");
 require('dotenv').config();
 const maps = process.env.maps;
 
@@ -58,27 +60,51 @@ router.post('/add', async function (req, res, next) {
 });
 
 router.get('/search', async function (req, res, next) {
-    console.log(maps);
     var distance = [];
     var return1 = [];
     Charger.find({}).exec(async function (err, charger) {
         for (var i = 0; i < charger.length; i++) {
             let dist = await fetch(`https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&origins=${req.body.address}&destinations=${charger[i].address}&key=${maps}`).then(res => res.json()).catch(err => { });
             dist1 = dist.rows[0].elements[0].distance.value;
-            if (i != 0 && i>10) {
+            if (i != 0 && i > 10) {
                 if (dist1 <= Math.min.apply(Math, nums)) {
                     var rep = distance.indexOf(Math.min.apply(Math, nums));
-                    return1[rep] =charger[i];
-                    distance[rep]=dist1;
+                    return1[rep] = charger[i];
+                    distance[rep] = dist1;
                 }
             }
-            else{
+            else {
                 distance.push(dist1);
                 return1.push(charger[i]);
             }
+            console.log(dist1);
         }
     });
+    // console.log(return1);
+    // for (var i = 0; i < return1.length; i++) {
+    //     for (var k = 0; k < return1[i].sessions.length; k++) {
+    //         Session.findOne({ _id: return1[i].sessions[k] }).then(sess => {
+    //             return1[i].sessions[k] = sess;
+    //         });
+    //     }
+    //     User.findOne({ _id: return1[i].owner }).then(sess => {
+    //         return1[i].owner = sess;
+    //     });
+    // }
+    // console.log(return1);
     res.send(return1);
+});
+
+router.get('/getsession', async function (req, res, next) {
+    Session.findOne({_id:req.body.id}).exec(async function (err, charger) {
+        res.send(charger);
+    });
+});
+
+router.get('/getowner', async function (req, res, next) {
+    User.findOne({_id:req.body.id}).exec(async function (err, charger) {
+        res.send(charger);
+    });
 });
 
 
