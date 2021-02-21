@@ -95,21 +95,35 @@ router.post('/search', async function (req, res, next) {
     res.send(return1);
 });
 
-router.post('/getsession', async function (req, res, next) {
-    Session.findOne({_id:req.body.id}).exec(async function (err, charger) {
+router.get('/getsession', async function (req, res, next) {
+    Session.findOne({_id:req.body.sess}).exec(async function (err, charger) {
         res.send(charger);
     });
 });
 
-router.post('/getowner', async function (req, res, next) {
-    User.findOne({_id:req.body.id}).exec(async function (err, charger) {
+router.get('/getowner', async function (req, res, next) {
+    User.find({_id : req.body.owner}).exec(async function (err, charger) {
         res.send(charger);
     });
 });
 
-router.post('/getcharger', async function (req, res, next) {
-    res.send(200);
-    Charger.findOne({_id:req.data.id}).exec(async function (err, charger) {
+
+// router.post('/adduser', async function (req, res, next) {
+//     const newSess = new User({
+//         _id: mongoose.Types.ObjectId(),
+//         email: req.body.e,
+//         password: req.body.p,
+//         first_name: req.body.end,
+//         last_name: req.body.booker
+//     });
+//     await newSess.save().then(charger => {
+//         res.json(charger);
+//     }).catch(err => console.log(err));
+// });
+
+
+router.get('/getcharger', async function (req, res, next) {
+    Charger.findOne({_id:req.body.charger}).exec(async function (err, charger) {
         res.send(charger);
     });
 });
