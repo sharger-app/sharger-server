@@ -27,7 +27,7 @@ const chargerSchema = new mongoose.Schema({
         required: true
     },
     sessions: {
-        type: mongoose.Schema.Types.ObjectId
+        type: [mongoose.Schema.Types.ObjectId]
     },
     housing: {
         type: Boolean,

@@ -13,6 +13,9 @@ const sessSchema = new mongoose.Schema({
     end:{
         type: Date,
         required: true
+    },
+    booker:{
+        type: mongoose.Schema.Types.ObjectId,
     }
 })
 
