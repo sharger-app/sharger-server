@@ -10,8 +10,10 @@ const maps = process.env.maps;
 
 const validateChargerInput = require("../validation/charger");
 /* GET home page. */
-router.post('/', function (req, res, next) {
-    res.send('hello');
+router.get('/', function (req, res, next) {
+    Charger.find({}).exec(async function (err, charger) {
+        res.send(charger);
+    });
 });
 
 router.post('/add', async function (req, res, next) {
@@ -65,7 +67,7 @@ router.post('/add', async function (req, res, next) {
 
 
 router.post('/book', async function (req, res, next) {
-    Charger.findOne({_id: req.body.charger }).exec(async function (err, charger) {
+    Charger.findOne({ _id: req.body.charger }).exec(async function (err, charger) {
         console.log(req);
         const newSess = new Session({
             _id: mongoose.Types.ObjectId(),
@@ -77,10 +79,10 @@ router.post('/book', async function (req, res, next) {
         await newSess.save().then(charger => {
             res.json(charger);
         }).catch(err => console.log(err));
-        if (charger.sessions.length == 0){
+        if (charger.sessions.length == 0) {
             charger.sessions = [newSess._id];
         }
-        else{
+        else {
             charger.sessions.push(newSess._id);
         }
         await charger.save().catch(err => console.log(err));

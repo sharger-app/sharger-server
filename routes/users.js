@@ -1,5 +1,4 @@
 var express = require('express');
-const user = require('../models/user');
 var router = express.Router();
 
 
@@ -7,22 +6,18 @@ var router = express.Router();
 // const validateRegisterInput = require("../validation/register");
 // const validateLoginInput = require("../validation/login");
 
-// User model
-const User = require("../models/user")
+/* GET users listing. */
+// router.get('/', function (req, res, next) {
+//   res.send('respond with a resource');
+// });
 
-router.post("/register", (req, res) => {
+
+// router.post("/register", (req, res) => {
   
-  // res.send('rila is bear');
-  const { errors, isValid } = validateRegisterInput(req.body);
+//   // res.send('rila is bear');
+//   const { errors, isValid } = validateRegisterInput(req.body);
 
-  // Check the validation 
-  if(!isValid){
-    return res.status(400).json(errors);
-  }
-
-  User.findOne({email: req.body.email}).then(user=>{
-
-  });
-});
+//   // Check the validation 
+// });
 
 module.exports = router;
